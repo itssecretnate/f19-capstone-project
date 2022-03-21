@@ -47,7 +47,7 @@ module.exports = {
         );
         
         CREATE TABLE asset (
-            assset_id SERIAL PRIMARY KEY,
+            asset_id SERIAL PRIMARY KEY,
             name VARCHAR(15) NOT NULL UNIQUE,
             manufacturer INTEGER REFERENCES manufacturer(manufacturer_id),
             model INTEGER REFERENCES model(model_id),
@@ -59,7 +59,7 @@ module.exports = {
         CREATE TABLE logs (
             log_id SERIAL PRIMARY KEY,
             log TEXT NOT NULL,
-            related_asset INTEGER REFERENCES asset(assset_id),
+            related_asset INTEGER REFERENCES asset(asset_id),
             date TIMESTAMP NOT NULL,
             employee_id INTEGER NOT NULL REFERENCES users(user_id)
         );

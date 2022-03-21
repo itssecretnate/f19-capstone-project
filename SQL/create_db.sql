@@ -37,7 +37,7 @@ CREATE TABLE asset (
 CREATE TABLE logs (
     log_id SERIAL PRIMARY KEY,
     log TEXT NOT NULL,
-    related_asset INTEGER REFERENCES asset(assset_id),
+    related_asset INTEGER REFERENCES asset(asset_id),
     date TIMESTAMP NOT NULL,
     employee_id INTEGER NOT NULL REFERENCES users(user_id)
 );
