@@ -41,6 +41,3 @@ CREATE TABLE logs (
     date TIMESTAMP NOT NULL,
     employee_id INTEGER NOT NULL REFERENCES users(user_id)
 );
-
-
-

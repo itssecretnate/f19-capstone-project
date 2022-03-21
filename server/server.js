@@ -5,6 +5,7 @@ const cors = require('cors')
 const path = require('path');
 
 const {seed} = require('./seedDB.js');
+const {getAssets, gettAssetByID: getAssetByID} = require('./controller.js');
 
 app.use(express.json())
 app.use(cors())
@@ -13,6 +14,9 @@ app.use(cors())
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.post('/seed', seed);
+
+app.get('/assets', getAssets);
+app.get('/assets/:id', getAssetByID);
 
 const SERVER_PORT = process.SERVER_PORT || 42069;
 app.listen(SERVER_PORT, () => console.log(`Server running on: ${SERVER_PORT}`))
