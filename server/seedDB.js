@@ -86,8 +86,8 @@ module.exports = {
         ('Database Seeded! This asset may be related to dummy data.', 3, CURRENT_TIMESTAMP, 1);
         
         `).then(() => {
-            console.log('DB seeded!')
+            console.log('Database successfully seeded!')
             res.sendStatus(200)
-        }).catch(err => console.log('error seeding DB', err))
+        }).catch(err => console.log('Well that freaking sucks. Error trying to seed DB.', err))
     }
 }
