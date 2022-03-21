@@ -1,0 +1,32 @@
+* {
+    font-family: Poppins;
+    background-color: grey;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    text-shadow: 3px 3px rgb(66, 66, 66);
+}
+
+.assetNav {
+    display: flex;
+    justify-content: center;
+    max-height: 95%;
+}
+
+.navBoxOption {
+    font-size: larger;
+    text-align: center;
+
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+    
+    width: 25vh;
+    height: 50vh;
+
+    background-color: rgb(192, 192, 192);
+    box-shadow: 3px 3px rgb(66, 66, 66);
+}
