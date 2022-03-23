@@ -59,7 +59,8 @@ FROM asset as a
             console.log(dbRes[0]);
             res.status(200).send(dbRes[0]);
         }).catch(err => {
-            res.status(400).send(err);
+            res.status(400).send(err.errors[0].message);
+            console.log(err.errors[0].message);
         })
     },
 
@@ -70,7 +71,7 @@ FROM asset as a
         sequelize.query(`
         UPDATE asset
             SET name = '${assetName}',
-            manufacturer = ${(manufacturer) ? manufacturer : 'NULL'}
+            manufacturer = ${(manufacturer === '') ? 'NULL' : manufacturer}
             WHERE asset_id = ${assetID}
             RETURNING *;
 `).then(dbRes => {
@@ -93,16 +94,3 @@ FROM asset as a
         else res.sendStatus(400);
     }
 }
-
-/*
-getAssetByID: (req, res) => {
-        console.log(req.params.id);
-        sequelize.query(`
-        SELECT a.asset_id, a.name, m.name as Manufacturer, mdl.name as Model FROM asset as a
-JOIN manufacturer m on a.manufacturer = m.manufacturer_id
-JOIN model mdl on a.model = mdl.model_id
-WHERE ${(+req.params.id) ? `a.asset_id = ${req.params.id}` : `a.name LIKE '%${req.params.id}%';`};
-        `).then(dbRes => res.status(200).send(dbRes[0])).catch(err => res.status(400).send('I am error.'));
-    },
-
-    */

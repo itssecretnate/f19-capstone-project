@@ -20,7 +20,6 @@ window.addEventListener('load', () => {
     loadAssets();
     loadManufacturers();
 
-
   })
 
 function loadDetails(id) {
@@ -95,7 +94,7 @@ function newAsset() {
 function submitAsset() {
     let body = {
         assetName: assetNameInput.value,
-        manufacturer: (manufacturerList[manufacturerList.selectedIndex].value === 'null') ? NULL : manufacturerList[manufacturerList.selectedIndex].id
+        manufacturer: (manufacturerList[manufacturerList.selectedIndex].id === 'null') ? '' : manufacturerList[manufacturerList.selectedIndex].id
     }
     if(!editingAsset) {
         axios.post('/api/new/asset', body).then(res => {
@@ -111,7 +110,7 @@ function submitAsset() {
             deleteButton.disabled = !editingAsset;
 
             loadAssets();
-        })
+        }).catch(err => console.log(err));
     }
 
     else {
