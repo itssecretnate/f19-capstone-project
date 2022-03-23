@@ -1,6 +1,7 @@
 * {
     font-family: Poppins;
     background-color: grey;
+    border-radius: 5px;
 }
 
 h1 {
@@ -20,7 +21,7 @@ h1 {
     text-align: center;
 
     display: inline-block;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     padding: 5px;
     margin: 10px;
     
@@ -29,4 +30,48 @@ h1 {
 
     background-color: rgb(192, 192, 192);
     box-shadow: 3px 3px rgb(66, 66, 66);
+}
+
+.assetBoxMain {
+    width: 60vw;
+    height: 80vh;
+    margin: auto;
+    
+    font-size: larger;
+    text-align: center;
+
+    /* display: inline-block; */
+    padding: 5px;
+    /* margin: 10px; */
+    
+    background-color: rgb(192, 192, 192);
+    box-shadow: 3px 3px rgb(66, 66, 66);
+}
+
+.assetBoxMain h3 {
+    margin: 5px;
+    height: 5%;
+}
+
+.assetBoxMain input, select {
+    margin: 2px;
+    margin-left: 5px;
+    background-color: white;
+    color: black;
+    float: left;
+    width: 100%;
+}
+
+.assetForm {
+    min-width: 30%;
+    max-width: 30%;
+}
+
+.assetList .assetListItem {
+    background-color: white;
+    font-size: smaller;
+    color: black;
+    border-radius: 0px;
+    min-width: 30%;
+    max-width: 50%;
 }

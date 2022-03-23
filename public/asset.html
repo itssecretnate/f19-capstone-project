@@ -14,12 +14,25 @@
 <body>
     <h1>Asset Management</h1>
 
-    <div class="assetNav">
-        <div id="createAsset" class="navBoxOption">Create Asset</div>
-        <div id="listAsset" class="navBoxOption">List Assets</div>
-        <div id="rentAsset" class="navBoxOption">Rent Asset</div>
+    <div class="assetBoxMain">
+        <h3>Full Asset Name?</h3>
+        <form class="assetForm">
+            <input type="button" value="New Asset" onclick="newAsset()">
+            <input type="text" placeholder="Asset ID" maxlength="6" id="assetID" disabled>
+            <input type="text" placeholder="Asset Name" maxlength="15" id="assetName">
+            
+            <select name="model" id="assetManufacturer">
+                <option value="null" id="null"></option>
+            </select>
+            <input type="button" id="deleteButton" value="Delete Asset" onclick="deleteAsset()" disabled>
+            <input type="button" id="submit" value="Submit" onclick="submitAsset()">
+
+        </form>
+        <div class="assetList" style="height:93%; overflow:auto; margin: 5px;">
+        </div>
     </div>
     <footer>Created by Nathan Mena in 2022 while attending Devmountain.</footer>
-    <script></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./asset.js"></script>
 </body>
 </html>
