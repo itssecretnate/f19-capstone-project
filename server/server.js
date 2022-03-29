@@ -5,7 +5,7 @@ const cors = require('cors')
 const path = require('path');
 
 const {seed} = require('./seedDB.js');
-const {getAssets, getAssetByID, getManufacturers, createAsset, updateAsset, deleteAsset, login, register} = require('./controller.js');
+const {getAssets, getAssetByID, getManufacturers, getModels, createAsset, updateAsset, deleteAsset, login, register} = require('./controller.js');
 
 app.use(express.json())
 app.use(cors())
@@ -39,6 +39,7 @@ app.put('/api/update/asset', updateAsset);
 
 app.get('/api/assets', getAssets);
 app.get('/api/assets/:id', getAssetByID);
+app.get('/api/models/:id', getModels);
 app.get('/api/manufacturers', getManufacturers);
 
 app.post('/api/login', login);

@@ -37,24 +37,32 @@ FROM asset as a
     getAssetByID: (req, res) => {
         console.log(req.params.id);
         sequelize.query(`
-        SELECT a.asset_id, a.name, m.name AS manufacturer, md.name AS model
-FROM asset as a
-  LEFT OUTER JOIN manufacturer m ON a.manufacturer = m.manufacturer_id
-  LEFT OUTER JOIN model md ON a.model = md.model_id
-  WHERE a.asset_id = ${req.params.id};
-        `).then(dbRes => res.status(200).send(dbRes[0])).catch(err => res.status(400).send('I am error.'));
+        SELECT a.asset_id, a.name, m.name AS manufacturer, model
+        FROM asset as a
+        LEFT OUTER JOIN manufacturer m ON a.manufacturer = m.manufacturer_id
+        WHERE a.asset_id = ${req.params.id};
+        `).then(dbRes => res.status(200).send(dbRes[0])).catch(err => res.status(400).send('Error loading asset by ID'));
     },
 
      getManufacturers: (req, res) => {
         sequelize.query('SELECT * FROM manufacturer').then(sqlRes => { res.status(200).send(sqlRes[0]) });
+
+        // TODO: Maybe there's a way to send models with this too?
+    },
+
+    getModels: (req, res) => {
+        sequelize.query(`
+        SELECT * FROM model
+        WHERE manufacturer = ${req.params.id};`
+        ).then(sqlRes => { res.status(200).send(sqlRes[0]) });
     },
 
     createAsset: (req, res) => {
-        const {assetName, manufacturer, assetID} = req.body;
+        const {assetName, manufacturer, assetID, model_id} = req.body;
 
         sequelize.query(`
         INSERT INTO asset (name, manufacturer, model, owner, creator, purchase_order)
-        VALUES('${assetName}', ${(manufacturer) ? manufacturer : 'NULL'}, NULL, NULL, ${1 /* TODO */}, NULL);
+        VALUES('${assetName}', ${manufacturer}, ${model_id}, NULL, ${1 /* TODO */}, NULL);
         SELECT MAX(asset_id) AS asset_id FROM asset;
         `).then(dbRes => {
             console.log(dbRes[0]);
@@ -67,12 +75,13 @@ FROM asset as a
 
     updateAsset: (req, res) => {
 
-        const {assetName, manufacturer, assetID} = req.body;
+        const {assetName, manufacturer, assetID, model_id} = req.body;
 
         sequelize.query(`
         UPDATE asset
             SET name = '${assetName}',
-            manufacturer = ${(manufacturer === '') ? 'NULL' : manufacturer}
+            manufacturer = ${manufacturer},
+            model = ${model_id}
             WHERE asset_id = ${assetID}
             RETURNING *;
 `).then(dbRes => {
@@ -135,6 +144,8 @@ FROM asset as a
         const { firstName, lastName, email, username, password } = req.body;
 
         let isAdmin = false; // TODO
+
+        // TODO: Username and length checks.
 
         if(!validateBody(req.body)) {
             res.sendStatus(400);

@@ -59,6 +59,9 @@ input, select, input[type='text'] {
     width: 80vw;
     max-width: 800px;
 
+    min-height: 225px;
+    max-height: 60vh;
+
     margin-left: auto;
     margin-right: auto;
     /* justify-content: center; */
@@ -78,6 +81,8 @@ input, select, input[type='text'] {
 .assetList {
     text-align: center;
     width: 80%;
+    overflow:hidden; 
+    overflow-y:scroll;
 }
 
 .loadingCircle {

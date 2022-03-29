@@ -25,7 +25,10 @@
             <input type="text" placeholder="Asset ID" maxlength="6" id="assetID" disabled><br>
             <input type="text" placeholder="Asset Name" maxlength="15" id="assetName"><br>
             
-            <select name="model" id="assetManufacturer">
+            <select name="manufacturer" id="assetManufacturer">
+                <option value="null" id="null"></option>
+            </select><br>
+            <select name="model" id="assetModel">
                 <option value="null" id="null"></option>
             </select><br>
             <input type="button" id="deleteButton" value="Delete Asset" onclick="deleteAsset()" disabled><br>
