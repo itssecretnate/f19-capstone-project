@@ -6,6 +6,10 @@ let assetNameInput = document.getElementById('assetName');
 let manufacturerList = document.getElementById('assetManufacturer');
 // MODEL
 
+// Submit button
+let submitButton = document.getElementById('submit');
+let submitStartingValue = submitButton.value;
+
 let assetList = document.querySelector('.assetList');
 let deleteButotn = document.getElementById('deleteButton');
 
@@ -17,6 +21,7 @@ window.addEventListener('load', () => {
     // TODO: See if I can do 2 queries in a another class, and return 2 objects.
 
     // Load assets when page is ready.
+    newAsset();
     loadAssets();
     loadManufacturers();
 
@@ -29,6 +34,9 @@ function loadDetails(id) {
 
         editingAsset = true; // TODO: Modify text of submit button.
         deleteButotn.disabled = !editingAsset; // TODO: See if there's a way to dynamically change the button state.
+
+        submitButton.value = 'Update'
+
 
         var options = manufacturerList.options.length;
         for(var i = 0; i < options; i++) {
@@ -45,8 +53,12 @@ function loadDetails(id) {
 }
 
 function loadAssets() {
-    assetList.innerHTML = '';
+    assetList.innerHTML = '<div class="loadingCircle"></div>';
+    assetList.style = `margin-top: auto;
+    margin-bottom: auto;`
     axios.get('/api/assets').then(res => {
+        assetList.innerHTML = '';
+        assetList.style = '';
 
         const { data } = res;
 
@@ -60,7 +72,15 @@ function loadAssets() {
     
             assetList.appendChild(assetElement);
         })
-    }).catch(err => console.log(err));
+    }).catch(err => {
+        console.log(err);
+        assetList.innerHTML = '<p style="text-align: center;">Error loading assets.</p>';
+
+        let form = document.getElementById('assetDetails').elements;
+        console.log(form);
+
+        for(let i in form) form[i].disabled = true;
+    });
 }
 
 function loadManufacturers() {
@@ -85,6 +105,7 @@ function loadManufacturers() {
 function newAsset() {    
     editingAsset = false;
     deleteButton.disabled = !editingAsset;
+    submitButton.value = submitStartingValue;
     
     assetIDInput.value = 'TBD';
     assetNameInput.value = "New Asset";

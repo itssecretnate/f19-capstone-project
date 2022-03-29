@@ -9,14 +9,14 @@ drop table if exists users;
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     first_name VARCHAR(40) NOT NULL,
-    last_name VARCHAR(40) NOT NULL,
-    username VARCHAR(16) NOT NULL
+    last_name VARCHAR(40) NOT NULL
 );
 
-CREATE TABLE authentication (
+  CREATE TABLE authentication (
     authentication_id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL UNIQUE REFERENCES users(user_id),
     email VARCHAR(255) NOT NULL UNIQUE,
+    username VARCHAR(16) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     is_admin BOOLEAN NOT NULL
 );
@@ -50,8 +50,8 @@ CREATE TABLE logs (
     employee_id INTEGER NOT NULL REFERENCES users(user_id)
 );
 
-INSERT INTO users(first_name, last_name, username)
-VALUES('Nathan', 'Mena', 'natemena');
+INSERT INTO users(first_name, last_name)
+VALUES('Nathan', 'Mena');
 
 INSERT INTO manufacturer(name)
 VALUES('HP'), ('DELL'), ('Apple');
@@ -70,3 +70,4 @@ INSERT INTO logs(log, related_asset, date, employee_id)
 VALUES('Database Seeded! This asset may be related to dummy data.', 1, CURRENT_TIMESTAMP, 1),
 ('Database Seeded! This asset may be related to dummy data.', 2, CURRENT_TIMESTAMP, 1),
 ('Database Seeded! This asset may be related to dummy data.', 3, CURRENT_TIMESTAMP, 1);
+

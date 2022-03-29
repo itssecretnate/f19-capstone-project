@@ -5,7 +5,7 @@ const cors = require('cors')
 const path = require('path');
 
 const {seed} = require('./seedDB.js');
-const {getAssets, getAssetByID, getManufacturers, createAsset, updateAsset, deleteAsset} = require('./controller.js');
+const {getAssets, getAssetByID, getManufacturers, createAsset, updateAsset, deleteAsset, login, register} = require('./controller.js');
 
 app.use(express.json())
 app.use(cors())
@@ -23,18 +23,25 @@ app.get('/assets', (req, res) => {
     res.sendFile(publicfolder + 'asset.html')
 })
 
+app.get('/account', (req, res) => {
+    res.sendFile(publicfolder + 'login.html')
+})
+
 // Endpoints
 
 app.post('/api/seed', seed);
 app.post('/api/new/asset', createAsset);
+app.post('/api/register', register);
 
-app.delete('/api/delete/:id', deleteAsset)
+app.delete('/api/delete/:id', deleteAsset);
 
 app.put('/api/update/asset', updateAsset);
 
 app.get('/api/assets', getAssets);
 app.get('/api/assets/:id', getAssetByID);
-app.get('/api/manufacturers', getManufacturers)
+app.get('/api/manufacturers', getManufacturers);
+
+app.post('/api/login', login);
 
 const SERVER_PORT = process.SERVER_PORT || 42069;
 app.listen(SERVER_PORT, () => console.log(`Server running on: ${SERVER_PORT}`))

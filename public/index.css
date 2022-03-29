@@ -1,27 +1,44 @@
 * {
     font-family: Poppins;
-    background-color: grey;
     border-radius: 5px;
+}
+
+body {
+    background-color: grey;
+    /* display: flex; */
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    /* width:80%; */
 }
 
 h1 {
     color: white;
     text-align: center;
-    text-shadow: 3px 3px rgb(66, 66, 66);
+    text-shadow: 3px 3px #424242;
+}
+
+button, input[type=button]:enabled {
+    cursor: pointer;
+    background-color: white;
+}
+
+input, select, input[type='text'] {
+    width: 100%;
+    box-sizing:border-box;
 }
 
 .assetNav {
     display: flex;
     justify-content: center;
-    max-height: 95%;
 }
 
 .navBoxOption {
+    cursor: pointer;
     font-size: larger;
     text-align: center;
 
     display: inline-block;
-    /* border-radius: 5px; */
     padding: 5px;
     margin: 10px;
     
@@ -33,45 +50,54 @@ h1 {
 }
 
 .assetBoxMain {
-    width: 60vw;
-    height: 80vh;
-    margin: auto;
-    
     font-size: larger;
-    text-align: center;
-
-    /* display: inline-block; */
     padding: 5px;
-    /* margin: 10px; */
-    
     background-color: rgb(192, 192, 192);
     box-shadow: 3px 3px rgb(66, 66, 66);
-}
 
-.assetBoxMain h3 {
-    margin: 5px;
-    height: 5%;
+    display: flex;
+    width: 80vw;
+    max-width: 800px;
+
+    margin-left: auto;
+    margin-right: auto;
+    /* justify-content: center; */
 }
 
 .assetBoxMain input, select {
-    margin: 2px;
-    margin-left: 5px;
     background-color: white;
     color: black;
-    float: left;
-    width: 100%;
+    box-sizing:border-box;
 }
 
 .assetForm {
-    min-width: 30%;
-    max-width: 30%;
+    max-width: 250px;
+    height: 100%;
 }
 
-.assetList .assetListItem {
-    background-color: white;
-    font-size: smaller;
-    color: black;
-    border-radius: 0px;
-    min-width: 30%;
-    max-width: 50%;
+.assetList {
+    text-align: center;
+    width: 80%;
+}
+
+.loadingCircle {
+    border: 5px solid #424242;
+    border-top: 5px solid grey;
+    border-radius: 50%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    width: 60px;
+    height: 60px;
+    animation: spin 1s cubic-bezier(0.57, 0.53, 0, 0.81) infinite;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+input[type='button']:disabled {
+    color: grey;
 }
