@@ -29,7 +29,7 @@ CREATE TABLE manufacturer (
 CREATE TABLE model (
     model_id SERIAL PRIMARY KEY,
     manufacturer INTEGER NOT NULL REFERENCES manufacturer(manufacturer_id) ON DELETE CASCADE,
-    name VARCHAR(255) NOT NULL UNIQUE
+    name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE asset (

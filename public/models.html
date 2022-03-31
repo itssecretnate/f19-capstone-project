@@ -12,37 +12,40 @@
     <link rel="stylesheet" href="./index.css">
 </head>
 <body>
-    <h1>Account Page</h1>
+    <h1>Asset Management</h1>
     
     <button onclick="location.href='/'" style="margin-left: auto; margin-right: auto;">Go Back</button>
 
     <div class="manufacturerContainer"> 
 
-        <h3>Manufactuers</h3>
+        <h3>Models and Manufacturers</h3>
     <div id="manufacturers" class="manufacturerDiv" style="display: flex;">
         <form id="manufacturersForm">
 
             <!-- Manufacturer Dropdown -->
             <label>Manufacturer:</label>
             <select name="manufacturer" id="manufacturerDropdown" disabled>
-                <option value="" id=""></option>
+                <option value="" id="">(New Manufacturer)</option>
             </select><br>
             <label>Name:</label>
             <input type="text" placeholder="Name" id="manufacturerFormName">
+            <input type="button" value="Delete" onclick="deleteManufacturer()" id="manufacturerDeleteButton" disabled>
             <input type="submit" value="Create" id="manufacturerSubmitButton">
         </form>
 
         <div class="modelsDiv" id="modelsListDiv"></div>
 
-        <form class="modelsForm">
+        <form id="modelsForm">
             <!-- Manufacturer Dropdown -->
             <label>Model:</label>
             <!-- May not need this dropdown? -->
             <select name="model" id="modelDropdown" disabled>
-                <option value="null" id=""></option>
+                <option value="" id="">(New Model)</option>
             </select><br>
             <label>Name:</label>
-            <input type="text" placeholder="Name" id="">
+            <input type="text" placeholder="Name" id="modelsFormName" disabled>
+            <input type="button" value="Delete" onclick="deleteModel()" id="modelsDeleteButton" disabled>
+            <input type="submit" value="Create" id="modelsSubmitButton" disabled>
         </form>
 
 
@@ -51,7 +54,7 @@
     </div>
 
 
-    <footer style="text-align: center;">Created by Nathan Mena in 2022.</footer>
+    <footer>Created by Nathan Mena in 2022.</footer>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./models.js"></script>
 </body>

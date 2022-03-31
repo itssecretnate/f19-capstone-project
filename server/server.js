@@ -5,7 +5,7 @@ const cors = require('cors')
 const path = require('path');
 
 const {seed} = require('./seedDB.js');
-const {getAssets, getAssetByID, getManufacturers, getModels, createAsset, updateAsset, deleteAsset, login, register, postManufacturer, putManufacturer, deleteManufacturer} = require('./controller.js');
+const {getAssets, getAssetByID, getManufacturers, getModels, createAsset, updateAsset, deleteAsset, login, register, putManufacturer, postManufacturer, deleteManufacturer, putModel, postModel, deleteModel} = require('./controller.js');
 
 app.use(express.json())
 app.use(cors())
@@ -34,23 +34,28 @@ app.get('/models', (req, res) => {
 // Endpoints
 
 app.post('/api/seed', seed);
-app.post('/api/new/asset', createAsset);
 app.post('/api/register', register);
+app.post('/api/new/asset', createAsset);
 
 app.delete('/api/delete/:id', deleteAsset);
 
 app.put('/api/update/asset', updateAsset);
 
 app.get('/api/assets', getAssets);
-app.get('/api/assets/:id', getAssetByID);
 app.get('/api/models/:id', getModels);
+app.get('/api/assets/:id', getAssetByID);
 app.get('/api/manufacturers', getManufacturers);
 
 app.post('/api/login', login);
 
 app.post('/api/manufacturers/', postManufacturer)
 app.put('/api/manufacturers/:id', putManufacturer)
-app.put('/api/manufacturers/:id', deleteManufacturer)
+app.delete('/api/manufacturers/:id', deleteManufacturer)
+
+
+app.post('/api/models/', postModel)
+app.put('/api/models/:id', putModel)
+app.delete('/api/models/:id', deleteModel)
 
 const SERVER_PORT = process.SERVER_PORT || 42069;
 app.listen(SERVER_PORT, () => console.log(`Server running on: ${SERVER_PORT}`))

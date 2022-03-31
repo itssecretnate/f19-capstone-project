@@ -113,7 +113,7 @@ function loadManufacturers() {
 
 function loadModels() {
 
-    axios.get(`/api/models/${+manufacturerList.selectedIndex}`).then(res => {
+    axios.get(`/api/models/${manufacturerList[manufacturerList.selectedIndex].id}`).then(res => {
         modelList.innerHTML = '<option value="null" id="null"></option>';
         const { data } = res;
 

@@ -265,6 +265,49 @@ module.exports = {
         })
     },
 
+    postModel: (req, res) => {
+
+        const {modelName, manufacturerID} = req.body;
+
+        sequelize.query(`
+        INSERT INTO model(name, manufacturer)
+        VALUES('${modelName}', ${manufacturerID})
+        RETURNING model_id;
+        `)
+
+        .then(dbRes => {
+            console.log(dbRes[0]);
+            res.status(200).send(dbRes[0]);
+        })
+
+        .catch(err => {
+            console.log(err.message);
+            res.status(400).send(err.message);
+        })
+    },
+
+    putModel: (req, res) => {
+
+        const {modelName} = req.body;
+
+        sequelize.query(`
+        UPDATE model
+        SET name = '${modelName}'
+        WHERE model_id = ${req.params.id};
+        `)
+
+        .then(dbRes => {
+            console.log(dbRes[0]);
+            let model_id = req.params.id;
+            res.status(200).send();
+        })
+
+        .catch(err => {
+            console.log(err.message);
+            res.status(400).send(err.message);
+        })
+    },
+
     deleteManufacturer: (req, res) => {
 
         // In theory if my SQL is setup correctly this should delete all the models too.
@@ -276,6 +319,25 @@ module.exports = {
         .then(dbRes => {
             console.log(`Deleted manufacturer: ${req.params.id}`);
             res.status(200).send(`Deleted manufacturer: ${req.params.id}`);
+        })
+
+        .catch(err => {
+            console.log(err.message);
+            res.status(400).send(err.message);
+        })
+    },
+
+    deleteModel: (req, res) => {
+
+        // In theory if my SQL is setup correctly this should delete all the models too.
+        sequelize.query(`
+            DELETE FROM model
+            WHERE model_id = ${req.params.id};
+        `)
+
+        .then(dbRes => {
+            console.log(`Deleted model: ${req.params.id}`);
+            res.status(200).send(`Deleted model: ${req.params.id}`);
         })
 
         .catch(err => {
