@@ -34,6 +34,7 @@ app.get('/models', (req, res) => {
 // Endpoints
 
 app.post('/api/seed', seed);
+
 app.post('/api/register', register);
 app.post('/api/new/asset', createAsset);
 

@@ -123,7 +123,6 @@ function loadModelDetails(id) {
         }
     }
 
-    // Simulate change event.
     modelsDropdown.dispatchEvent(new Event('change'));
 }
 
@@ -181,8 +180,6 @@ function submitModel(event) {
             console.log(res);
 
             modelsDropdown.selectedIndex = 0;
-            
-             // Simulate change event.
             modelsDropdown.dispatchEvent(new Event('change'));
             loadModels();
         })
@@ -200,38 +197,22 @@ function submitModel(event) {
 
 }
 
-function deleteManufacturer() {
-
-    let manufacturerID = manufacturerDropdown[manufacturerDropdown.selectedIndex].id;
-
-    if(manufacturerID === '') return;
-
-    axios.delete(`/api/manufacturers/${manufacturerID}`).then(res => {
+function deleteFromDB(type, id) {
+    axios.delete(`/api/${type}s/${id}`).then(res => {
         console.log(res.data);
 
-        selectedManufacturer = 0;
-        loadManufacturers();
-    })
-
-    .catch(err => {
-        console.log(err);
-    })
-}
-
-function deleteModel() {
-
-    let modelID = modelsDropdown[modelsDropdown.selectedIndex].id;
-
-    if(modelID === '') return;
-
-    axios.delete(`/api/models/${modelID}`).then(res => {
-        console.log(res.data);
-
-        modelsDropdown.selectedIndex = 0;
-        
-        // Simulate change event.
-        modelsDropdown.dispatchEvent(new Event('change'));
-        loadModels();
+        switch(type) {
+            case "manufacturer":
+                selectedManufacturer = 0;
+                loadManufacturers();
+                break;
+    
+            case "model":
+                modelsDropdown.selectedIndex = 0;
+                modelsDropdown.dispatchEvent(new Event('change'));
+                loadModels();
+                break;
+        }
     })
 
     .catch(err => {

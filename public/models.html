@@ -29,7 +29,7 @@
             </select><br>
             <label>Name:</label>
             <input type="text" placeholder="Name" id="manufacturerFormName">
-            <input type="button" value="Delete" onclick="deleteManufacturer()" id="manufacturerDeleteButton" disabled>
+            <input type="button" value="Delete" onclick="deleteFromDB('manufacturer', manufacturerDropdown[manufacturerDropdown.selectedIndex].id)" id="manufacturerDeleteButton" disabled>
             <input type="submit" value="Create" id="manufacturerSubmitButton">
         </form>
 
@@ -44,7 +44,7 @@
             </select><br>
             <label>Name:</label>
             <input type="text" placeholder="Name" id="modelsFormName" disabled>
-            <input type="button" value="Delete" onclick="deleteModel()" id="modelsDeleteButton" disabled>
+            <input type="button" value="Delete" onclick="deleteFromDB('model',modelsDropdown[modelsDropdown.selectedIndex].id)" id="modelsDeleteButton" disabled>
             <input type="submit" value="Create" id="modelsSubmitButton" disabled>
         </form>
 
