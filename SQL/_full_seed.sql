@@ -14,7 +14,7 @@ CREATE TABLE users (
 
   CREATE TABLE authentication (
     authentication_id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL UNIQUE REFERENCES users(user_id),
+    user_id INTEGER NOT NULL UNIQUE REFERENCES users(user_id) ON DELETE CASCADE,
     email VARCHAR(255) NOT NULL UNIQUE,
     username VARCHAR(16) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -28,26 +28,26 @@ CREATE TABLE manufacturer (
 
 CREATE TABLE model (
     model_id SERIAL PRIMARY KEY,
-    manufacturer INTEGER NOT NULL REFERENCES manufacturer(manufacturer_id),
+    manufacturer INTEGER NOT NULL REFERENCES manufacturer(manufacturer_id) ON DELETE CASCADE,
     name VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE asset (
     asset_id SERIAL PRIMARY KEY,
     name VARCHAR(15) NOT NULL UNIQUE,
-    manufacturer INTEGER REFERENCES manufacturer(manufacturer_id),
-    model INTEGER REFERENCES model(model_id),
-    owner INTEGER REFERENCES users(user_id),
-    creator INTEGER NOT NULL REFERENCES users(user_id),
+    manufacturer INTEGER REFERENCES manufacturer(manufacturer_id) ON DELETE SET NULL,
+    model INTEGER REFERENCES model(model_id) ON DELETE SET NULL,
+    owner INTEGER REFERENCES users(user_id) ON DELETE SET NULL,
+    creator INTEGER NOT NULL REFERENCES users(user_id) ON DELETE SET NULL,
     purchase_order VARCHAR(25)
 );
 
 CREATE TABLE logs (
     log_id SERIAL PRIMARY KEY,
     log TEXT NOT NULL,
-    related_asset INTEGER REFERENCES asset(asset_id),
+    related_asset INTEGER REFERENCES asset(asset_id) ON DELETE SET NULL,
     date TIMESTAMP NOT NULL,
-    employee_id INTEGER NOT NULL REFERENCES users(user_id)
+    employee_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE SET NULL
 );
 
 INSERT INTO users(first_name, last_name)

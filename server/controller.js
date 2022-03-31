@@ -266,7 +266,22 @@ module.exports = {
     },
 
     deleteManufacturer: (req, res) => {
-        
+
+        // In theory if my SQL is setup correctly this should delete all the models too.
+        sequelize.query(`
+            DELETE FROM manufacturer
+            WHERE manufacturer_id = ${req.params.id};
+        `)
+
+        .then(dbRes => {
+            console.log(`Deleted manufacturer: ${req.params.id}`);
+            res.status(200).send(`Deleted manufacturer: ${req.params.id}`);
+        })
+
+        .catch(err => {
+            console.log(err.message);
+            res.status(400).send(err.message);
+        })
     }
 }
 
