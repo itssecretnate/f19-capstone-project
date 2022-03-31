@@ -157,11 +157,22 @@ function newAsset() {
 }
 
 function submitAsset() {
+
+    if(assetNameInput.value.includes('\'')) {
+        alert('Contains apostraphe. Need to fix.');
+        return;
+    }
     let body = {
         assetName: assetNameInput.value,
         manufacturer: (manufacturerList.selectedIndex === 0) ? 'NULL' : manufacturerList[manufacturerList.selectedIndex].id,
         model_id: (modelList.selectedIndex === 0) ? 'NULL' : modelList[modelList.selectedIndex].id
     }
+
+    if(body.assetName == '') {
+        alert('Asset name cannot be empty.');
+        return;
+    }
+
     if(!editingAsset) {
         axios.post('/api/new/asset', body).then(res => {
             const {asset_id} = res.data[0];

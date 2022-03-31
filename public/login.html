@@ -14,31 +14,41 @@
 <body>
     <h1>Account Page</h1>
     
-        <!-- <button onclick="history.back()" style="position: absolute;">Go Back</button> -->
+    <button onclick="location.href='/'" style="margin-left: auto; margin-right: auto;">Go Back</button>
 
-    <div class="assetBoxMain"> 
+    <div class="loginContainer"> 
 
 
-    <div class="register">
+    <div id="register" class="loginForm" hidden>
+        <h3>Register</h3>
         <form id="registerForm">
             <input type="text" placeholder="Username" maxlength="16" id="username">
             <input type="text" placeholder="First Name" id="firstName">
             <input type="text" placeholder="Last Name" id="lastName">
             <input type="text" placeholder="Email" id="email">
             <input type="password" placeholder="Password" maxlength="" id="password">
-            <input type="submit" value="Register">
+            <input type="password" placeholder="Confirm Password" maxlength="" id="confirmPassword">
+            <input type="submit" value="Register" id="registerSubmit">
         </form>
+        <p onclick="tradeFields()">Already have an account? Login!</p>
     </div>
 
-    <div class="login">
-        <form id="loginForm">
+    </div>
+
+    <div class="loginContainer">
+
+    <div id="login" class="loginForm">
+        <h3>Login</h3>
+        <form id="loginFormContainer">
             <input type="text" placeholder="Username" maxlength="16" id="loginUsername">
             <input type="password" placeholder="Password" maxlength="" id="loginPassword">
-            <input type="submit" value="Login">
+            <input type="submit" value="Login" id="loginSubmit">
         </form>
+        <p onclick='tradeFields()'>Don't have an account? Register!</p>
     </div>
 
     </div>
+
 
     <footer style="text-align: center;">Created by Nathan Mena in 2022.</footer>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

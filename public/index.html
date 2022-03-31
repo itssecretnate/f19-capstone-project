@@ -14,11 +14,30 @@
 <body>
     <h1>Asset Management</h1>
 
+    <h3 id="welcomeUserField"></h3>
+
     <div class="assetNav">
-        <div id="createAsset" class="navBoxOption" onclick="location.href='/assets'">Manage Assets</div>
-        <div id="listAsset" class="navBoxOption">Manage Models</div>
-        <div id="rentAsset" class="navBoxOption">Rent Asset (TODO)</div>
+        <div id="createAsset" class="navBoxOption" onclick="location.href='/assets'">
+            <div class="centerDiv">
+                <p>Assets</p>
+                <image src='./images/laptop.png'></image>
+            </div>
+        </div>
+        <div id="listAsset" class="navBoxOption" onclick="location.href='/models'">
+            <div class="centerDiv">
+                <p>Manage Models</p>
+                <image src='./images/laptop.png'></image>
+            </div>
+        </div>
+        <div id="login" class="navBoxOption" onclick="location.href='/account'">
+             <div class="centerDiv">
+                <p>Login</p>
+                <image src='./images/laptop.png'></image>
+            </div>
+        </div>
     </div>
     <footer style="text-align: center;">Created by Nathan Mena in 2022.</footer>
+
+    <script src="./main.js"></script>
 </body>
 </html>
