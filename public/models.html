@@ -20,7 +20,7 @@
 
         <h3>Models and Manufacturers</h3>
     <div id="manufacturers" class="manufacturerDiv" style="display: flex;">
-        <form id="manufacturersForm">
+        <form id="manufacturersForm" onsubmit="submitData('manufacturer', manufacturerFormName.value, manufacturerDropdown[manufacturerDropdown.selectedIndex].id)">
 
             <!-- Manufacturer Dropdown -->
             <label>Manufacturer:</label>
@@ -35,7 +35,7 @@
 
         <div class="modelsDiv" id="modelsListDiv"></div>
 
-        <form id="modelsForm">
+        <form id="modelsForm" onsubmit="submitData('model', modelsFormName.value, modelsDropdown[modelsDropdown.selectedIndex].id)">
             <!-- Manufacturer Dropdown -->
             <label>Model:</label>
             <!-- May not need this dropdown? -->

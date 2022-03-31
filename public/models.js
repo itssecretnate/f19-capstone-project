@@ -30,27 +30,6 @@ function loadManufacturers() {
 
             manufacturerDropdown.appendChild(selectField);            
         })
-
-        try {
-            var manufacturerOptions = manufacturerDropdown.options;
-        
-            if(selectedManufacturer > 0) {
-                for(var i = 1; i < manufacturerOptions.length; i++) {
-                    if(+manufacturerOptions[i].id === +selectedManufacturer) {
-                        manufacturerDropdown[i].selected = true;
-                        break;
-                    }
-                }
-            }
-            else manufacturerDropdown.selectedIndex = 0;
-
-            // Simulate change event.
-            manufacturerDropdown.dispatchEvent(new Event('change'));
-        }
-        catch(error) {
-            console.log(error)
-        }
-        console.log('Manufacturers loaded.');
     })
     .catch(err => {
         console.log(err);
@@ -126,75 +105,59 @@ function loadModelDetails(id) {
     modelsDropdown.dispatchEvent(new Event('change'));
 }
 
-function submitManufacturer(event) {
-    event.preventDefault();
-
-    if(manufacturerFormName.value.trim() === '') return;
-
-    let manufacturerID = manufacturerDropdown[manufacturerDropdown.selectedIndex].id;
-
-    let body = {
-        manufacturerName: manufacturerFormName.value,
-    }
-
-    if(manufacturerID === '') {
-        axios.post(`/api/manufacturers/`, body).then(res => {
-            console.log(res);
-
-            const {manufacturer_id} = res.data[0];
-            selectedManufacturer = manufacturer_id;
-
-            loadManufacturers();
-        })
-
-        .catch(err => console.log(err));
-    }
-    else {
-        axios.put(`/api/manufacturers/${manufacturerID}`, body).then(res => {
-            console.log(res);
-            
-            selectedManufacturer = manufacturerID;
-            loadManufacturers();
-        })
-
-        .catch(err => console.log(err));
-    }
-
-}
-
-function submitModel(event) {
-    event.preventDefault();
-
-    if(modelsFormName.value.trim() === '') return;
-
-
-    let modelID = modelsDropdown[modelsDropdown.selectedIndex].id;
+function submitData(type, name, id) {
 
     let body = {
         manufacturerID: manufacturerDropdown[manufacturerDropdown.selectedIndex].id,
         modelName: modelsFormName.value,
+        manufacturerName: manufacturerFormName.value,
     }
 
-    if(modelsDropdown.selectedIndex === 0) {
-        axios.post(`/api/models/`, body).then(res => {
+    if(name.trim() === '') {
+        console.log(`${type}'s name field cannot be empty.`);
+        return;
+    }
+
+    if(id === '') {
+        axios.post(`/api/${type}s/`, body).then(res => {
             console.log(res);
 
-            modelsDropdown.selectedIndex = 0;
-            modelsDropdown.dispatchEvent(new Event('change'));
-            loadModels();
+            switch (type) {
+                case 'manufacturer':
+                    const {manufacturer_id} = res.data[0];
+                    selectedManufacturer = manufacturer_id;
+                    loadManufacturers();
+
+                    break;
+
+                case 'model':
+                    modelsDropdown.selectedIndex = 0;
+                    modelsDropdown.dispatchEvent(new Event('change'));
+                    loadModels();
+            }
         })
 
         .catch(err => console.log(err));
     }
     else {
-        axios.put(`/api/models/${modelID}`, body).then(res => {
-            console.log(res);
-            loadModels();
-        })
+        axios.put(`/api/${type}s/${id}`, body).then(res => {
 
+            switch(type) {
+                case 'manufacturer':
+                    console.log(res);
+            
+                    selectedManufacturer = id;
+                    loadManufacturers();
+                    break;
+
+                case 'model':
+                    console.log(res);
+                    loadModels();
+                    break;
+            }
+        })
         .catch(err => console.log(err));
     }
-
 }
 
 function deleteFromDB(type, id) {
@@ -244,7 +207,7 @@ manufacturerDropdown.addEventListener('change', () => {
     if(manufacturerDropdown.selectedIndex > 0) loadModels();
 });
 
-manufacturersForm.addEventListener('submit', submitManufacturer);
+manufacturersForm.addEventListener('submit', (event) => event.preventDefault());
 
 modelsDropdown.addEventListener('change', () => {
 
@@ -256,7 +219,7 @@ modelsDropdown.addEventListener('change', () => {
     modelsSubmitButton.value = (modelsDropdown.selectedIndex === 0) ? 'Create' : 'Update';
 });
 
-modelsForm.addEventListener('submit', submitModel);
+modelsForm.addEventListener('submit', (event) => event.preventDefault());
 
 window.addEventListener('load', () => {
     loadManufacturers();
